@@ -100,6 +100,7 @@ class Parser():
       else:
         last_frame = frames[i-1]
 
+      # only have 1 channel for now
       channel = 0
       for note in range(NUM_NOTES):
         # note pressed
@@ -107,7 +108,6 @@ class Parser():
           midi_output.tracks[channel].append(Message('note_on', note=note, velocity=velocity, time=min_time*i-last_change[channel]))
           note_channel[note] = channel
           last_change[channel] = min_time*i
-          channel += 1
         # note released
         elif frame[note] == 0 and last_frame[note] == 1:
           midi_output.tracks[note_channel[note]].append(Message('note_off', note=note, velocity=0, time=min_time*i-last_change[note_channel[note]]))
@@ -120,7 +120,9 @@ class Parser():
     midi_output.save('output.mid')
 
 # p = Parser('bach/chorales/01ausmei.mid')
-p = Parser('mozart/mz_311_1.mid')
-frames, num_tracks, min_time = p.parse()
-p.make_midi(frames, num_tracks, 64, min_time)
+# p = Parser('mozart_turkish_march.mid')
+# p = Parser('mozart/mz_311_1.mid')
+# p = Parser('chopin_nocturne_9_2.mid')
+# frames, num_tracks, min_time = p.parse()
+# p.make_midi(frames, num_tracks, 64, min_time)
 # p.parse()
