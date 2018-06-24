@@ -111,6 +111,7 @@ class Parser():
         # note released
         elif frame[note] == 0 and last_frame[note] == 1:
           midi_output.tracks[note_channel[note]].append(Message('note_off', note=note, velocity=0, time=min_time*i-last_change[note_channel[note]]))
+          # print (min_time*i-last_change[note_channel[note]])
           last_change[note_channel[note]] = min_time*i
 
     # for track in midi_output.tracks:
